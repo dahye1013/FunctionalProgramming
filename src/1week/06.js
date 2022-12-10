@@ -1,18 +1,15 @@
-const shopping_cart = [];
-let shopping_cart_total = 0;
+let shopping_cart = [];
+const shopping_cart_total = 0;
 
-export function add_item_to_cart(cart, name, price) {
-  const newCart = [
-    ...cart,
-    {
-      name: name,
-      price: price,
-    },
-  ];
+const add_item_to_cart = (name, price) => {
+  shopping_cart.push({
+    name: name,
+    price: price
+  });
   calc_cart_total();
 }
 
-export function update_shipping_icons() {
+const update_shipping_icons = () => {
   const buy_buttons = get_buy_button_dom();
   for (let i = 0; i < buy_buttons.length; i++) {
     const button = buy_buttons[i];
@@ -25,22 +22,21 @@ export function update_shipping_icons() {
   }
 }
 
-export function update_tax_dom() {
-  set_tax_dom(shopping_cart_total * 0.1);
+const update_tax_dom = () => {
+  set_tax_dom(shopping_cart_total * 0.10);
 }
 
-export function calc_cart_total(carts) {
-  const shopping_cart_total = carts.reduce((acc, cur) => {
-    return acc + cur.price;
-  }, 0);
-
+const calc_cart_total = () => {
+  shopping_cart_total = 0;
+  for (let i = 0; i < shopping_cart.length; i++) {
+    const item = shopping_cart[i];
+    shopping_cart_total += item.price;
+  }
   set_cart_total_dom();
   update_shipping_icons();
   update_tax_dom();
-
-  return shopping_cart_total;
 }
 
-export function set_tax_dom() {}
-export function set_cart_total_dom() {}
-export function get_buy_button_dom() {}
+const set_tax_dom = () => { }
+const set_cart_total_dom = () => { }
+const get_buy_button_dom = () => { }
