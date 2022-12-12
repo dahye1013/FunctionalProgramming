@@ -50,7 +50,7 @@ const calc_tax = (total, ratio = 0.1) => total * ratio;
 // 예제에 호출은 하지만 정의는 안돼있는 함수들 임의 정의
 const set_tax_dom = () => null;
 const set_cart_total_dom = () => null;
-const get_buy_button_dom = () => null;
+const get_buy_button_dom = () => [];
 
 // 테스트를 위한 export
 export {
