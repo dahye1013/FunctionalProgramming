@@ -66,9 +66,9 @@ export const calc_shopping_cart_total = carts => {
 
 // C - 배송팀에서 사용하는 비즈니스 규칙 분리
 export const gets_free_shipping = (item_price, total) => {
-  return Number(item_price) + Number(total) >= MIN_ITEM_PRICE;
+  return Number(item_price) + Number(total) >= MIN_ITEM_PRICE_TO_FREE_SHIPPING;
 };
 
 // D - 해석이 필요한 데이터
-const MIN_ITEM_PRICE = 20;
+const MIN_ITEM_PRICE_TO_FREE_SHIPPING = 20;
 const TAX_RATE = 0.1;
