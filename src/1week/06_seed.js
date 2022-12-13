@@ -24,7 +24,7 @@ const update_shipping_icons = () => {
 // A: 돔을 조작하고 전역 변수를 읽음
 const update_shipping_icon = button => {
   const { show_free_shipping_icon, hide_free_shipping_icon, item: button_item } = button;
-  const calc_cart_total = calc_total(shopping_cart);
+  const cart_total = calc_total(shopping_cart);
 
   get_free_shipping(calc_cart_total, button_item) ? show_free_shipping_icon() : hide_free_shipping_icon();
 };
