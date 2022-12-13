@@ -26,11 +26,14 @@ export const update_shipping_icons = (carts: CartItem[]) => {
     const item = button.item;
     const shopping_cart_total = calc_shopping_cart_total(carts);
 
-    if (gets_free_shipping(item.price, shopping_cart_total)) {
-      button.show_free_shipping_icon();
-    } else {
-      button.hide_free_shipping_icon();
-    }
+    const is_free_shipping = gets_free_shipping(
+      item.price,
+      shopping_cart_total
+    );
+
+    is_free_shipping
+      ? button.show_free_shipping_icon()
+      : button.hide_free_shipping_icon();
   }
 };
 
