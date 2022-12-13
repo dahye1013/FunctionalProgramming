@@ -6,7 +6,7 @@ import {
   get_free_shipping,
   calc_added_item,
   calc_tax,
-} from './06';
+} from './06_seed';
 
 /*
   액션 함수에 대한 테스트 코드 => 테스트가 잘되는지 확인하기 위해서는 전역변수나 돔 변화를 체킹해야함
