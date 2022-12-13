@@ -11,8 +11,6 @@ type BuyButton = {
 
 // A - 변경 가능한 전역 변수
 let shopping_cart: CartItem[] = [];
-// A - 변경 가능한 전역 변수
-let shopping_cart_total = 0;
 
 // A - 전역 변수를 참조하는 함수, 사이드 이펙트를 참조하는 함수
 export const add_item_to_cart = (name: string, price: number) => {
@@ -21,11 +19,13 @@ export const add_item_to_cart = (name: string, price: number) => {
 };
 
 // A - 액션 함수를 호출
-export const update_shipping_icons = () => {
+export const update_shipping_icons = (carts: CartItem[]) => {
   const buy_buttons = get_buy_button_dom();
   for (let i = 0; i < buy_buttons.length; i++) {
     const button = buy_buttons[i];
     const item = button.item;
+    const shopping_cart_total = calc_cart(carts);
+
     if (gets_free_shipping(item.price, shopping_cart_total)) {
       button.show_free_shipping_icon();
     } else {
@@ -35,16 +35,16 @@ export const update_shipping_icons = () => {
 };
 
 // A - 전역 변수를 참조하는 함수
-export const update_tax_dom = () => {
+export const update_tax_dom = (carts: CartItem[]) => {
+  const shopping_cart_total = calc_cart(carts);
   set_tax_dom(calc_tax(shopping_cart_total));
 };
 
 // A - 전역 변수를 변경하는 함수
-export const calc_cart_total = (carts) => {
-  shopping_cart_total = calc_cart(carts);
+export const calc_cart_total = (carts: CartItem[]) => {
   set_cart_total_dom();
-  update_shipping_icons();
-  update_tax_dom();
+  update_shipping_icons(carts);
+  update_tax_dom(carts);
 };
 
 // A - Dom을 바꾸는 사이드 이펙트가 있는 함수
