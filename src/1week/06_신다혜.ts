@@ -21,11 +21,10 @@ export const add_item_to_cart = (name: string, price: number) => {
 // A - 액션 함수를 호출
 export const update_shipping_icons = (carts: CartItem[]) => {
   const buy_buttons = get_buy_button_dom();
-  for (let i = 0; i < buy_buttons.length; i++) {
-    const button = buy_buttons[i];
-    const item = button.item;
-    const shopping_cart_total = calc_shopping_cart_total(carts);
+  const shopping_cart_total = calc_shopping_cart_total(carts);
 
+  buy_buttons.forEach((button) => {
+    const { item } = button;
     const is_free_shipping = gets_free_shipping(
       item.price,
       shopping_cart_total
@@ -34,7 +33,7 @@ export const update_shipping_icons = (carts: CartItem[]) => {
     is_free_shipping
       ? button.show_free_shipping_icon()
       : button.hide_free_shipping_icon();
-  }
+  });
 };
 
 // A - 전역 변수를 참조하는 함수
