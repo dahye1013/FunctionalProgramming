@@ -24,7 +24,7 @@ export const update_shipping_icons = (carts: CartItem[]) => {
   for (let i = 0; i < buy_buttons.length; i++) {
     const button = buy_buttons[i];
     const item = button.item;
-    const shopping_cart_total = calc_cart(carts);
+    const shopping_cart_total = calc_shopping_cart_total(carts);
 
     if (gets_free_shipping(item.price, shopping_cart_total)) {
       button.show_free_shipping_icon();
@@ -36,7 +36,7 @@ export const update_shipping_icons = (carts: CartItem[]) => {
 
 // A - 전역 변수를 참조하는 함수
 export const update_tax_dom = (carts: CartItem[]) => {
-  const shopping_cart_total = calc_cart(carts);
+  const shopping_cart_total = calc_shopping_cart_total(carts);
   set_tax_dom(calc_tax(shopping_cart_total));
 };
 
@@ -72,7 +72,7 @@ export const add_Item = (cart: CartItem[], name: string, price: number) => {
 };
 
 // C - 명시적인 입출력의 계산
-export const calc_cart = (carts: CartItem[]) => {
+export const calc_shopping_cart_total = (carts: CartItem[]) => {
   return carts.reduce((acc, cur) => {
     return acc + cur.price;
   }, 0);
