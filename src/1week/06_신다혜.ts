@@ -5,7 +5,6 @@ type CartItem = {
 
 type BuyButton = {
   item: CartItem;
-  gets_free_shiping: () => void;
   show_free_shipping_icon: () => void;
   hide_free_shipping_icon: () => void;
 };
@@ -27,7 +26,7 @@ export const update_shipping_icons = () => {
   for (let i = 0; i < buy_buttons.length; i++) {
     const button = buy_buttons[i];
     const item = button.item;
-    if (gets_free_shiping(item.price, shopping_cart_total)) {
+    if (gets_free_shipping(item.price, shopping_cart_total)) {
       button.show_free_shipping_icon();
     } else {
       button.hide_free_shipping_icon();
@@ -41,7 +40,7 @@ export const update_tax_dom = () => {
 };
 
 // A - 전역 변수를 변경하는 함수
-export const calc_cart_total = (carts: CartItem[]) => {
+export const calc_cart_total = (carts) => {
   shopping_cart_total = calc_cart(carts);
   set_cart_total_dom();
   update_shipping_icons();
@@ -80,7 +79,7 @@ export const calc_cart = (carts: CartItem[]) => {
 };
 
 // C - 배송팀에서 사용하는 비즈니스 규칙 분리
-const gets_free_shiping = (item_price: number, total: number) => {
+const gets_free_shipping = (item_price: number, total: number) => {
   return item_price + total >= MIN_ITEM_PRICE;
 };
 
