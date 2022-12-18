@@ -1,7 +1,7 @@
 {
   "name": "fecrash-cafe",
   "version": "1.0.0",
-  "main": "app_hun.ts",
+  "main": "app.js",
   "license": "MIT",
   "scripts": {
     "test": "cypress run --browser chrome"
