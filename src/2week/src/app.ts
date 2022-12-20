@@ -1,5 +1,6 @@
+import { sum_array, add_element_to_array, add } from "./utils";
 // A
-const shopping_cart = [];
+const shopping_cart: Item[] = [];
 
 // A
 document.querySelectorAll("button").forEach((button) =>
@@ -7,20 +8,27 @@ document.querySelectorAll("button").forEach((button) =>
     const name = target.parentNode.querySelector(".menu-name").textContent;
     const category = target.parentNode.querySelector(".category").textContent;
     const price = target.parentNode.querySelector(".price").textContent;
-    add_item_to_cart({ name, category, price });
+
+    const item: Item = {
+      name,
+      category,
+      price,
+    };
+
+    add_item_to_cart(item);
   })
 );
 
 // A
 const add_item_to_cart = (item: Item) => {
   const next_cart = add_item(shopping_cart, item);
-  calc_cart_total(next_cart);
+  calc_cart_total(shopping_cart);
 };
 
 // A
 const calc_cart_total = (cart: Item[]) => {
   const shopping_cart_total = calc_cart_total_price(cart);
-
+  console.log(shopping_cart_total);
   update_shipping_icons(shopping_cart_total);
   set_cart_total_dom(shopping_cart_total);
   update_tax_dom(shopping_cart_total);
@@ -92,18 +100,6 @@ const add_item = (cart: Item[], item: Item) => add_element_to_array(cart, item);
 // C - item
 const calc_added_item = (total: number, item: { price: number }) =>
   add(total, item.price);
-
-// C - util
-const sum_array = (numArray: number[]) => numArray.reduce(add, 0);
-
-// C - util
-const add_element_to_array = <T extends unknown>(array: T[], element: T) => [
-  ...array,
-  element,
-];
-
-// C - util
-const add = (num1: number, num2: number) => num1 + num2;
 
 // D
 const FREE_SHIPPING_PRICE = 20000;

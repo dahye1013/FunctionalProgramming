@@ -1,9 +1,9 @@
-type Item = {
+declare type Item = {
   name: string;
   category: string;
   price: number;
 };
-type ItemBuyButton = {
+declare type ItemBuyButton = {
   show_free_shopping_icon: () => void;
   hide_free_shopping_icon: () => void;
 } & Item;
