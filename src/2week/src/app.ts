@@ -23,7 +23,7 @@ document.querySelectorAll("button").forEach((button) =>
 
 // A
 const add_item_to_cart = (item: Item) => {
-  const next_cart = add_item(shopping_cart, item);
+  const next_cart = add_cart_item(shopping_cart, item);
   calc_cart_total(shopping_cart);
 };
 
@@ -84,22 +84,24 @@ const set_tax_dom = (value: number) => {
 };
 
 // C - shipping
-const gets_free_shipping = (addedPrice: number, freeShippingPrice: number) =>
-  addedPrice >= freeShippingPrice;
+export const gets_free_shipping = (
+  addedPrice: number,
+  freeShippingPrice: number
+) => addedPrice >= freeShippingPrice;
 
 // C - cart
-const get_cart_price_list = (cart: Item[]) =>
+export const get_cart_price_list = (cart: Item[]) =>
   cart.map((item: Item) => get_cart_price(item));
-const get_cart_price = <T extends { price: number }>({ price }: T) => price;
 
 // C - cart
-const calc_cart_total_price = (cart: Item[]) =>
+export const get_cart_price = <T extends { price: number }>({ price }: T) =>
+  price;
+
+// C - cart
+export const calc_cart_total_price = (cart: Item[]) =>
   sum_array(get_cart_price_list(cart));
 
 // C - cart
-const add_item = (cart: Item[], item: Item) => add_element_to_array(cart, item);
-
-// C - item
-const calc_added_item = (total: number, item: { price: number }) =>
-  add(total, item.price);
+export const add_cart_item = (cart: Item[], item: Item) =>
+  add_element_to_array(cart, item);
 
