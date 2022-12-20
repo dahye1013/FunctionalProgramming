@@ -1,7 +1,8 @@
-## 세팅법
+## 실행 순서
 
 #### 의존성 모듈 설치
 ```bash
+cd ./src/2week
 yarn install
 ```
 #### ts 파일 js로 변환
