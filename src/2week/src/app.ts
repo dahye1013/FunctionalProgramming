@@ -1,4 +1,6 @@
 import { sum_array, add_element_to_array, add } from "./utils";
+import { FREE_SHIPPING_PRICE, TAX_SCALE } from "./constant";
+
 // A
 const shopping_cart: Item[] = [];
 
@@ -101,6 +103,3 @@ const add_item = (cart: Item[], item: Item) => add_element_to_array(cart, item);
 const calc_added_item = (total: number, item: { price: number }) =>
   add(total, item.price);
 
-// D
-const FREE_SHIPPING_PRICE = 20000;
-const TAX_SCALE = 0.1;
