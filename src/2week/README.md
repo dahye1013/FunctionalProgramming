@@ -11,7 +11,7 @@ tsc app.js
 ```
 #### 앱 실행
 ```bash
-node index.js
+yarn start
 ```
 #### 테스트(cypress) 실행
 ```bash
