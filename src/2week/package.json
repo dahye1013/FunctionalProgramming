@@ -4,9 +4,18 @@
   "main": "app.js",
   "license": "MIT",
   "scripts": {
-    "test": "cypress run --browser chrome"
+    "test": "cypress run --browser chrome",
+    "start": "parcel index.html"
   },
   "devDependencies": {
-    "cypress": "^12.1.0"
-  }
+    "cypress": "^12.1.0",
+    "parcel-bundler": "^1.12.5",
+    "typescript": "^4.9.4"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "keywords": [],
+  "author": "",
+  "description": ""
 }
