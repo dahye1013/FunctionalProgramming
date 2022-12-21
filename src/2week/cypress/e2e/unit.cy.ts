@@ -1,6 +1,11 @@
 /// <reference types="cypress" />
 
-import { add, add_element_to_array, sum_array } from "../../src/utils";
+import {
+  add,
+  add_element_to_array,
+  sum_array,
+  get_raw_price,
+} from "../../src/utils";
 import {
   add_cart_item,
   get_cart_price,
@@ -49,8 +54,11 @@ describe("Unit Test Application Code", function () {
     it("get_cart_price_list", function () {
       expect(get_cart_price_list([...items, newItem])).to.deep.eq([3900, 7200]);
     });
-    it("get_cart_price", function () {
+    it("calc_cart_total_price", function () {
       expect(calc_cart_total_price([...items, newItem])).to.deep.eq(11100);
+    });
+    it("get_raw_price", function () {
+      expect(get_raw_price("4,000원", "원")).to.equal(4000);
     });
   });
 });
