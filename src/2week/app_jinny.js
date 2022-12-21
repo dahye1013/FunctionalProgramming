@@ -1,5 +1,6 @@
 let shopping_cart = [];
 
+//A dom update, 전역변수 사용
 document.querySelectorAll("button").forEach((button) =>
   button.addEventListener("click", ({ target }) => {
     const name = target.parentNode.querySelector(".menu-name").textContent;
@@ -11,59 +12,70 @@ document.querySelectorAll("button").forEach((button) =>
       price,
     });
     const total_price = calc_cart_total_price(shopping_cart);
-    update_shipping_icons(total_price);
     set_cart_total_dom(total_price);
+    set_tax_dom(total_price)
+    update_shipping_icons(total_price);
   })
 );
 
-// A
+// A dom update
 const set_cart_total_dom = (cart_total) => {
-  document.querySelector(".total-price").textContent = `${update_tax(
+  document.querySelector(".total-price").textContent = `total-price: ${cart_total}원`;
+};
+
+// A dom update
+const set_tax_dom = (cart_total) => {
+  document.querySelector(".total-tax").textContent = `tax: ${update_tax(
     cart_total
   )}원`;
-};
+}
 
-// A
+// A dom update
 const update_shipping_icons = (cart_total) => {
-  let button_visible = false;
-  shopping_cart.map((item) => {
-    const price = get_cart_price(item);
-    const next_total = add(cart_total, price);
-    button_visible = gets_free_shipping(next_total, FREE_SHIPPING_PRICE);
-  });
-  button_visible
-    ? console.log("버튼을 보여준다")
-    : console.log("버튼을 숨긴다");
+  const free_shipping_icon = HTMLCollection_convert_to_array(get_buy_button_dom())
+  const all_price = get_all_price();
+      all_price.map((itemPrice,idx) => {
+        if(gets_free_shipping(add(cart_total,itemPrice), FREE_SHIPPING_PRICE)) {
+          free_shipping_icon[idx].style = 'visibility: visible'
+        }
+      })
 };
 
-// C
-const update_tax = (calc_total) => calc_total + calc_total * TAX_SCALE;
+// A dom 읽음
+const get_all_price = () => {
+  const all_price_dom = HTMLCollection_convert_to_array(document.querySelectorAll(".price"))
+  const all_price = []
+  all_price_dom.map((item) =>all_price.push(convert_string_to_number(item.textContent)))
+  return all_price
+}
 
-// C - shipping
+// A dom 읽음
+const get_buy_button_dom = () => document.getElementsByClassName("free-shipping");
+
+// C - business logic - tax
+const update_tax = (calc_total) => calc_total * TAX_SCALE;
+
+// C - business logic - shipping
 const gets_free_shipping = (addedPrice, freeShippingPrice) =>
   addedPrice >= freeShippingPrice;
 
-// C - cart
+// C - cart.price
 const get_cart_price_list = (cart) => cart.map((item) => get_cart_price(item));
 const get_cart_price = ({ price }) => convert_string_to_number(price);
-const convert_string_to_number = (str) =>
-  Number(str.replaceAll(",", "").replace("원", ""));
+const convert_string_to_number = (str) => parseInt(str.replaceAll(",", ""));
+
 // C - cart
 const add_item = (cart, item) => add_element_to_array(cart, item);
-
 // C -cart
-const add_item_to_cart = (cart, item) => {
-  const next_cart = add_item(cart, item);
-  return next_cart;
-};
+const add_item_to_cart = (cart, item) => add_item(cart, item);
 // C - cart
 const calc_cart_total_price = (cart) => sum_array(get_cart_price_list(cart));
-
+// C - util
+const HTMLCollection_convert_to_array = (collection) => [...collection]
 // C - util
 const sum_array = (numArray) => numArray.reduce(add, 0);
 // C - util
 const add_element_to_array = (array, element) => [...array, element];
-
 // C - util
 const add = (num1, num2) => num1 + num2;
 
