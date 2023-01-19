@@ -1,25 +1,27 @@
 export const forEach = (arr, cb) => {
-  for (let i = 0; i < arr.length; i++) {
-    cb(arr[i]);
+  let idx = -1;
+  let length = arr.length ?? 0;
+
+  while (++idx < length) {
+    cb(arr[idx], idx, arr);
   }
 };
 
 export const map = (arr, cb) => {
   let res = [];
-  forEach(arr, item => {
-    res.push(cb(item));
+  forEach(arr, (...args) => {
+    res.push(cb(...args));
   });
   return res;
 };
 
 export const filter = (arr, cb) => {
   let res = [];
-  let idx = 0;
-  forEach(arr, item => {
-    if (cb(item)) {
+
+  forEach(arr, (value, idx) => {
+    if (cb(value)) {
       res.push(arr[idx]);
     }
-    idx++;
   });
   return res;
 };
@@ -27,9 +29,14 @@ export const filter = (arr, cb) => {
 export const reduce = (arr, cb, initialValue = 0) => {
   let res = initialValue;
 
-  forEach(arr, item => {
-    res = cb(res, item);
+  forEach(arr, (value, idx) => {
+    res = cb(res, value, idx, arr);
   });
 
   return res;
 };
+
+export const pipe =
+  (...cbArr) =>
+  initialData =>
+    reduce(cbArr, (accData, cb) => cb(accData), initialData);

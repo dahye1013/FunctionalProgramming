@@ -1,41 +1,44 @@
-import { forEach, map, filter, reduce } from './my_func';
+import { forEach, map, filter, reduce, pipe } from './my_func';
 
-describe('forEach function', () => {
-  it('Should call the callback for each element in the array', () => {
-    const numbers = [1, 2, 3, 4, 5];
-    const spy = jest.fn();
-    forEach(numbers, spy);
-    expect(spy).toHaveBeenCalledTimes(numbers.length);
+describe('forEach', () => {
+  it('should call the callback for each element in the array', () => {
+    const mockCallback = jest.fn();
+    forEach([1, 2, 3], mockCallback);
+    expect(mockCallback.mock.calls.length).toBe(3);
   });
 });
 
-describe('map function', () => {
-  it('Should return a new array with the result of calling the callback on each element', () => {
-    const numbers = [1, 2, 3, 4, 5];
-    const double = num => num * 2;
-    const doubledNumbers = map(numbers, double);
-    expect(doubledNumbers).toEqual([2, 4, 6, 8, 10]);
+describe('map', () => {
+  it('should return a new array with the result of the callback function applied to each element', () => {
+    const result = map([1, 2, 3], value => value * 2);
+    expect(result).toEqual([2, 4, 6]);
   });
 });
 
-describe('filter function', () => {
-  it('Should return a new array with only the elements that passed the test', () => {
-    const numbers = [1, 2, 3, 4, 5];
-    const even = num => num % 2 === 0;
-    const evenNumbers = filter(numbers, even);
-    expect(evenNumbers).toEqual([2, 4]);
+describe('filter', () => {
+  it('should return a new array with only the elements that pass the callback test', () => {
+    const result = filter([1, 2, 3, 4, 5], value => value % 2 === 0);
+    expect(result).toEqual([2, 4]);
   });
 });
 
-describe('reduce function', () => {
-  it('Should return a single accumulated value', () => {
-    const numbers = [1, 2, 3, 4, 5];
-    const sum = (accumulator, num) => accumulator + num;
-    const total = reduce(numbers, sum);
-    expect(total).toEqual(15);
+describe('reduce', () => {
+  it('should reduce the array to a single value', () => {
+    const result = reduce([1, 2, 3], (acc, value) => acc + value);
+    expect(result).toBe(6);
+  });
 
-    const product = (accumulator, num) => accumulator * num;
-    const productOfNumbers = reduce(numbers, product, 1);
-    expect(productOfNumbers).toEqual(120);
+  it('should use the provided initialValue', () => {
+    const result = reduce([1, 2, 3], (acc, value) => acc + value, 10);
+    expect(result).toBe(16);
+  });
+});
+
+describe('pipe', () => {
+  it('should apply the functions in the provided order', () => {
+    const increment = x => x + 1;
+    const double = x => x * 2;
+    const result = pipe(increment, double)(3);
+    expect(result).toBe(8);
   });
 });
